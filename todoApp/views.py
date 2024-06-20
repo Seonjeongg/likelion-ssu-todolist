@@ -38,3 +38,14 @@ class Todos(APIView):
       many=True
     )
     return Response(serializer.data)
+
+  def post(self, request, user_id):
+    serializer = TodoSerializer(data=request.data)
+    if serializer.is_valid():
+      user = self.get_user(user_id)
+      serializer.save(
+        user=user
+      )
+      return Response(serializer.data)
+    else:
+      return Response(serializer.errors)

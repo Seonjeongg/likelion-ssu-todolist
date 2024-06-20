@@ -3,8 +3,8 @@ from .models import Todo
 
 class TodoSerializer(serializers.ModelSerializer):
 
-  user = serializers.StringRelatedField(read_only=True)  # 아래 부연 설명 참고
-  todo_id = serializers.IntegerField(source='id', read_only=True)  # 아래 부연 설명 참고
+  user = serializers.StringRelatedField(read_only=True)  
+  todo_id = serializers.IntegerField(source='id', read_only=True) 
 
   class Meta:
     model = Todo
