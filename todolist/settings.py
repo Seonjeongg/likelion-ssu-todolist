@@ -24,7 +24,8 @@ SECRET_KEY = 'django-insecure-zf8!lipl@9yrt3c+k0^y@$hu6^+c*7g51m$8w4gxtx-)28+m5+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOW_CREDENTIALS=True
 ALLOWED_HOSTS = [
     'ec2-3-106-192-9.ap-southeast-2.compute.amazonaws.com',
     '127.0.0.1',
@@ -44,9 +45,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'todoApp',
     'userApp',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
