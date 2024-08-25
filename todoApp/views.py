@@ -49,3 +49,60 @@ class Todos(APIView):
       return Response(serializer.data)
     else:
       return Response(serializer.errors)
+class CheckTodo(APIView):
+
+    def get_user(self, user_id):
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise NotFound("유저를 찾을 수 없습니다.")
+        return user
+
+    def get_todo(self, user_id, todo_id):
+        try:
+            todo = Todo.objects.get(id=todo_id, user=user_id)
+        except Todo.DoesNotExist:
+            raise NotFound("할 일을 찾을 수 없습니다.")
+        return todo
+
+    def patch(self, request, user_id, todo_id):
+        user = self.get_user(user_id)
+        todo = self.get_todo(user_id, todo_id)
+
+        # 요청 본문에서 `is_checked` 값을 받아서 업데이트합니다.
+        is_checked = request.data.get("is_checked")
+        if is_checked is None:
+            return Response({"error": "is_checked 필드가 필요합니다."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        todo.is_checked = is_checked
+        todo.save()
+
+        serializer = TodoSerializer(todo)
+        return Response(serializer.data)
+
+class ReviewTodo(APIView):
+
+    def get_user(self, user_id):
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise NotFound("유저를 찾을 수 없습니다.")
+        return user
+
+    def get_todo(self, user_id, todo_id):
+        try:
+            todo = Todo.objects.get(id=todo_id, user=user_id)
+        except Todo.DoesNotExist:
+            raise NotFound("할 일을 찾을 수 없습니다.")
+        return todo
+
+    def patch(self, request, user_id, todo_id):
+        user = self.get_user(user_id)
+        todo = self.get_todo(user_id, todo_id)
+
+        # 요청 본문에서 리뷰 내용을 받아서 업데이트합니다.
+        review = request.data.get("review")
+        if review is None:
+            return Response({"error": "review 필드가 필요합니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"message": "리뷰가 성공적으로 업데이트되었습니다."})
