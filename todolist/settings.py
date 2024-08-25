@@ -27,7 +27,7 @@ DEBUG = True
 CORS_ALLOW_ALL_ORIGINS=True
 CORS_ALLOW_CREDENTIALS=True
 ALLOWED_HOSTS = [
-    'ec2-3-106-192-9.ap-southeast-2.compute.amazonaws.com',
+    'ec2-3-27-58-171.ap-southeast-2.compute.amazonaws.com',
     '127.0.0.1',
     'localhost',
 ]
