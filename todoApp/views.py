@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from .models import Todo, User
 from .serializers import TodoSerializer
+from rest_framework import status
 
 class Todos(APIView):
 
