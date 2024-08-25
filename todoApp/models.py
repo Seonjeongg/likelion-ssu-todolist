@@ -8,6 +8,7 @@ class Todo(models.Model):
   date = models.DateTimeField()
   content = models.TextField()
   is_checked = models.BooleanField(default=False)
+  review = models.TextField(blank=True, default="")
   emoji = models.CharField(
     max_length=1,
     default="",
