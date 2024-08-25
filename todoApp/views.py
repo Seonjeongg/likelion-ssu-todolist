@@ -89,20 +89,24 @@ class ReviewTodo(APIView):
             raise NotFound("유저를 찾을 수 없습니다.")
         return user
 
-    def get_todo(self, user_id, todo_id):
+    def get_todo(self, user, todo_id):
         try:
-            todo = Todo.objects.get(id=todo_id, user=user_id)
+            todo = Todo.objects.get(id=todo_id, user=user)
         except Todo.DoesNotExist:
             raise NotFound("할 일을 찾을 수 없습니다.")
         return todo
 
     def patch(self, request, user_id, todo_id):
         user = self.get_user(user_id)
-        todo = self.get_todo(user_id, todo_id)
+        todo = self.get_todo(user, todo_id)
 
         # 요청 본문에서 리뷰 내용을 받아서 업데이트합니다.
         review = request.data.get("review")
         if review is None:
             return Response({"error": "review 필드가 필요합니다."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # 리뷰 내용을 업데이트하고 저장합니다.
+        todo.review = review
+        todo.save()
 
-        return Response({"message": "리뷰가 성공적으로 업데이트되었습니다."})
+        return Response({"message": "리뷰가 성공적으로 업데이트되었습니다."}, status=status.HTTP_200_OK)
