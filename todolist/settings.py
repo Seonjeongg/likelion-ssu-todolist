@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'ec2-3-27-58-171.ap-southeast-2.compute.amazonaws.com',
     '127.0.0.1',
     'localhost',
+    'ip-172-31-39-255.ap-southeast-2.compute.internal',
 ]
 
 
