@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'ip-172-31-39-255.ap-southeast-2.compute.internal',
+    '3.27.58.171',
 ]
 
 
